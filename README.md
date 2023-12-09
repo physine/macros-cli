@@ -27,9 +27,9 @@ mvn clean install
 
 Run `macros-cli` with the desired command:
 
-- **Create a Macro**: `java -jar macros-cli.jar -c "<target>" "<trigger>"`
+- **Create a Macro**: `java -jar macros-cli.jar -c <target> <trigger>`
 - **Retrieve All Macros**: `java -jar macros-cli.jar -r`
-- **Update a Macro**: `java -jar macros-cli.jar -u <id> "<new_target>" "<new_trigger>"`
+- **Update a Macro**: `java -jar macros-cli.jar -u <id> <new_target> <new_trigger>`
 - **Delete a Macro**: `java -jar macros-cli.jar -d <id>`
 
 ## Contributing
