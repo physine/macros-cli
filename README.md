@@ -1,3 +1,8 @@
+## About
+
+`macros-cli` is a front-end command-line interface tool designed to interact with the [Macros backend service](https://github.com/physine/macros). It offers a convenient way to perform CRUD operations on macros via simple CLI commands, leveraging the functionalities provided by the backend service.
+
+
 # Macros-CLI
 
 Macros-CLI is a command-line interface tool for managing macros through a RESTful API. It simplifies the process of creating, retrieving, updating, and deleting macros with easy-to-use command-line operations. Built in Java, it leverages the Apache Commons CLI for parsing command-line arguments and Java HttpClient for HTTP requests, ensuring a smooth and efficient user experience.
