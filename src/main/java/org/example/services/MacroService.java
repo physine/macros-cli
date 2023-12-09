@@ -1,7 +1,6 @@
 package org.example.services;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.HelpFormatter;
 
 import java.io.IOException;
 import java.net.URI;
