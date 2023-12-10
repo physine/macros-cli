@@ -36,8 +36,7 @@ public class MacroService {
                     .build();
 
             HttpResponse<String> response = apiService.sendRequest(postRequest);
-            JsonElement jsonElement = JsonParser.parseString(response.body());
-            return gson.toJson(jsonElement);
+            return response.body();
         }
 
         if (cmd.hasOption("retrieve")) {
