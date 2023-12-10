@@ -25,8 +25,8 @@ public class MacroService {
 
         if (cmd.hasOption("create")) {
             String[] createArgs = cmd.getOptionValues("create");
-            String target = createArgs[0];
-            String trigger = createArgs[1];
+            String trigger = createArgs[0];
+            String target = createArgs[1];
             String jsonPayload = String.format("{\"trigger\": \"%s\", \"target\": \"%s\"}", trigger, target);
 
             HttpRequest postRequest = HttpRequest.newBuilder()
