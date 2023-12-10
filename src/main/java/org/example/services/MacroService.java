@@ -1,5 +1,6 @@
 package org.example.services;
 
+import com.google.gson.*;
 import org.apache.commons.cli.CommandLine;
 
 import java.io.IOException;
@@ -8,13 +9,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class MacroService {
+
     private final ApiService apiService;
+    private final Gson gson;
 
     public MacroService(ApiService apiService) {
         this.apiService = apiService;
+        this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     public String executeCommand(CommandLine cmd) throws IOException, InterruptedException {
+
         if (cmd.hasOption("create")) {
             String[] createArgs = cmd.getOptionValues("create");
             String target = createArgs[0];
@@ -28,7 +33,8 @@ public class MacroService {
                     .build();
 
             HttpResponse<String> response = apiService.sendRequest(postRequest);
-            return response.body();
+            JsonElement jsonElement = JsonParser.parseString(response.body());
+            return gson.toJson(jsonElement);
         }
 
         if (cmd.hasOption("retrieve")) {
@@ -38,7 +44,10 @@ public class MacroService {
                     .build();
 
             HttpResponse<String> response = apiService.sendRequest(getRequest);
-            return response.body();
+            JsonArray jsonArray = JsonParser.parseString(response.body()).getAsJsonArray();
+
+            StringBuilder table = getStringBuilder(jsonArray);
+            return table.toString();
         }
 
         if (cmd.hasOption("update")) {
@@ -77,5 +86,18 @@ public class MacroService {
         }
 
         return null;
+    }
+
+    private static StringBuilder getStringBuilder(JsonArray jsonArray) {
+        StringBuilder table = new StringBuilder();
+        table.append(String.format("%-10s %-20s %-30s\n", "ID", "Trigger", "Target")); // Header
+        for (JsonElement element : jsonArray) {
+            JsonObject macro = element.getAsJsonObject();
+            Long id = macro.get("id").getAsLong();
+            String trigger = macro.get("trigger").getAsString();
+            String target = macro.get("target").getAsString();
+            table.append(String.format("%-10d %-20s %-30s\n", id, trigger, target));
+        }
+        return table;
     }
 }

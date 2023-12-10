@@ -70,7 +70,7 @@ In addition to setting up the Java environment, you can configure your system to
 After setting up the environment variables, restart your command prompt or terminal and run:
 
 ```bash
-java -version
+java --version
 ```
 
 ## Contributing
