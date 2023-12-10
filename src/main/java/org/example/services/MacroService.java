@@ -1,12 +1,15 @@
 package org.example.services;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.cli.CommandLine;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Collections;
+import java.util.List;
 
 public class MacroService {
 
@@ -89,14 +92,34 @@ public class MacroService {
     }
 
     private static StringBuilder getStringBuilder(JsonArray jsonArray) {
+        // Determine the maximum lengths of trigger and target
+        int maxTriggerLength = "Trigger".length();
+        int maxTargetLength = "Target".length();
+        for (JsonElement element : jsonArray) {
+            JsonObject macro = element.getAsJsonObject();
+            maxTriggerLength = Math.max(maxTriggerLength, macro.get("trigger").getAsString().length());
+            maxTargetLength = Math.max(maxTargetLength, macro.get("target").getAsString().length());
+        }
+
         StringBuilder table = new StringBuilder();
-        table.append(String.format("%-10s %-20s %-30s\n", "ID", "Trigger", "Target")); // Header
+
+        // Markdown Table Header
+        String headerFormat = "| %-3s | %-" + maxTriggerLength + "s | %-" + maxTargetLength + "s |\n";
+        table.append(String.format(headerFormat, "ID", "Trigger", "Target"));
+
+        // Markdown Table Separator
+        table.append("|" + "-".repeat(5) + "|" + "-".repeat(maxTriggerLength + 2) + "|" + "-".repeat(maxTargetLength + 2) + "|\n");
+
+        // Table Rows
+        String rowFormat = "| %-3d | %-" + maxTriggerLength + "s | %-" + maxTargetLength + "s |\n";
         for (JsonElement element : jsonArray) {
             JsonObject macro = element.getAsJsonObject();
             Long id = macro.get("id").getAsLong();
             String trigger = macro.get("trigger").getAsString();
             String target = macro.get("target").getAsString();
-            table.append(String.format("%-10d %-20s %-30s\n", id, trigger, target));
+
+            // Formatting each row as a Markdown table row
+            table.append(String.format(rowFormat, id, trigger, target));
         }
         return table;
     }
