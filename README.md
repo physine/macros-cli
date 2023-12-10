@@ -30,12 +30,48 @@ mvn clean install
 
 ## Usage
 
-Run `macros-cli` with the desired command:
+Run `macro` with the following options:
 
-- **Create a Macro**: `java -jar macros-cli.jar -c <target> <trigger>`
-- **Retrieve All Macros**: `java -jar macros-cli.jar -r`
-- **Update a Macro**: `java -jar macros-cli.jar -u <id> <new_target> <new_trigger>`
-- **Delete a Macro**: `java -jar macros-cli.jar -d <id>`
+- **Create a New Macro**:
+    - Command: `-c, --create <target> <trigger>`
+    - Description: Create a new macro. Requires target and trigger as arguments.
+
+- **Delete a Macro**:
+    - Command: `-d, --delete <id>`
+    - Description: Delete a macro. Requires the macro ID.
+
+- **Display Help**:
+    - Command: `-h, --help`
+    - Description: Display help information about commands.
+
+- **Retrieve All Macros**:
+    - Command: `-r, --retrieve`
+    - Description: Retrieve all macros.
+
+- **Update an Existing Macro**:
+    - Command: `-u, --update <id> <target> <trigger>`
+    - Description: Update an existing macro. Requires macro ID, target, and trigger.
+
+
+## Environment Setup Instructions
+
+In addition to setting up the Java environment, you can configure your system to run the `macro` command from anywhere in the command line by updating the `PATH` environment variable.
+
+## Adding `macro` to the PATH
+
+1. **Locate the `macro` Executable**:
+    - Find the directory where your `macro` executable (or script) is located.
+    - For example, it might be in `C:\path\to\macros-cli\target` on Windows or `/path/to/macros-cli/target` on Unix-like systems.
+
+2. **Update the `PATH` Environment Variable**:
+
+## Verifying the Setup
+
+After setting up the environment variables, restart your command prompt or terminal and run:
+
+```bash
+java -version
+```
 
 ## Contributing
 

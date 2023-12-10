@@ -22,12 +22,12 @@ public class App {
                 System.out.println(response);
             }else {
                 HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("macros-cli", options);
+                formatter.printHelp("macro", options);
             }
 
         } catch (ParseException | IOException | InterruptedException e) {
             System.err.println("Error: " + e.getMessage());
-            new HelpFormatter().printHelp("macro-cli", options);
+            new HelpFormatter().printHelp("macro", options);
         }
     }
 }
